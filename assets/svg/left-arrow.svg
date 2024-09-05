@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.03 47.03">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c3c3c3;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Interactive_screen" data-name="Interactive screen">
+    <g>
+      <circle class="cls-1" cx="23.51" cy="23.51" r="23.51"/>
+      <polyline class="cls-2" points="25.53 17.05 19.06 23.51 25.53 29.98"/>
+    </g>
+  </g>
+</svg>

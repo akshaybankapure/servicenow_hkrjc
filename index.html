@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<title> ServiceNow | ServiceNow | The Honk Kong Royal Hockey Club</title>
+    	<meta name="description" content="">
+    	<link rel="shortcut icon" href="./assets/servicenow-favicon.ico">
+    	<link rel="stylesheet" href="./assets/style.css">
+		<style type="text/css" id="tts-styles">[data-tts-block-id].tts-active {background: rgba(206, 225, 255, 0.9) !important;} [data-tts-sentence-id].tts-active {background: rgba(0, 89, 191, 0.7) !important;}</style>
+		<script src="./assets/jquery-3.6.0.min.js"></script>
+       
+    <!-- Correct way to include custom scripts -->
+    <script src="assets/scripts/PopConfig.js"></script>
+    <script src="assets/scripts/scripts.js"></script>
+    <link rel="stylesheet" href="assets/style.css">
+   <style>
+     html, body {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-smooth: always;
+      overflow-x: hidden;
+      font-size: 0.938vw;
+      font-family: "Century Gothic", "Futura", sans-serif;
+      color: #032d42;
+      height: 100vh;
+      min-height: 600px;
+      background-color: #f4f4f4;
+    }
+    
+    .container, .platform-workflow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      top: 30vh;
+      z-index: 9;
+    }
+    
+    .info-box {
+      width: 7vw;
+      height: 7vh;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      border-radius: 1vw;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-size: 1em;
+    }
+    
+    .bg-pale-green { background-color: #90EE90; }
+    .bg-orange { background-color: #FFA500; }
+    .bg-darkgreen { background-color: #006400; }
+    .bg-midblue { background-color: #4682B4; }
+    .bg-lightblue { background-color: #87CEFA; }
+    
+    .popup {
+      display: none;
+      position: fixed;
+      width: 85vw;
+      height: 88vh;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgb(234 234 234);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      /* opacity: 0; 
+      transition: opacity 0.3s ease, transform 0.3s ease;  */
+    }
+    
+    .popup.show {
+      display: block;
+      /* opacity: 1;
+      animation: slideDown 0.5s ease-out; */
+    }
+    /* Keyframes for the slide-down effect */
+      /* @keyframes slideDown {
+        from {
+          top: -100%;
+          opacity: 0;
+        }
+        to {
+          top: 50%;
+          opacity: 1;
+          transform: translateY(-50%) translateX(-50%);
+        }
+      } */
+    
+    .popup img {
+      width: 80vw;
+    }
+    
+    .popup .close {
+      position: relative;
+      width: 3.5vw;
+      height: 3.5vw;
+      margin:-0.5vw;
+      top:0vh;
+      left:80.5vw;
+      background-image: url('assets/close-button.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 102;
+    }
+    .popup .popup-heading {
+    position: fixed;
+    top: 1vw;
+    left: 1vw;
+    margin-top: 1vw;
+    margin-bottom:1vw;
+    margin-left: 4vw;
+    font-size: 1.2em;
+    z-index: 9;
+    min-width: 60%;
+    height: 6vh;
+    min-height: 2em;
+}
+    
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 90;
+    }
+    
+    .popup-overlay.show {
+      display: block;
+    }
+    
+    .popup-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+
+      transform: translateY(-50%);
+    }
+    
+    .popup-nav button {
+      width: 4vw;
+      height: 3.5vw;
+      border: none;
+      border-radius: 50%;
+      padding:1em;
+      cursor: pointer;
+      font-size: 18px;
+      color: #333;
+      padding: 0 10px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+        
+    .popup-nav .prev,
+    .popup-nav .next {
+      width: 4vw; /* Adjust as needed */
+      height: 3.5vw; /* Adjust as needed */
+      border-radius: 50%;
+      background-size: 4vw 4vw; /* Adjust to fit the arrow images */
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer; /* Add a pointer cursor on hover */
+    }
+
+    /* For example, to set different background images */
+    .popup-nav .prev {
+      margin-left: 0.6vw;
+      margin-right:0.6vw;
+      background-image: url('assets/left-arrow.png');
+    }
+
+    .popup-nav .next {
+      margin-right: 0.6vw;
+
+      background-image: url('assets/right-arrow.png');
+    }
+    .popup-slides {
+      position: relative;
+      top:2vh;
+      width: 90vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .popup-slides img {
+    position: fixed;
+    max-width: 75vw;
+    left: 5vw;
+    height: auto;
+    display: block;
+}
+.white-bg{
+    position: absolute;
+    left: -0.1vw;
+    width: 101vw;
+    height: 10vh;
+    z-index: 0;
+    background-color: #ffffff;
+}
+    /* .popup-slides img {
+        position: fixed;
+        max-width: 77vw;
+        left: 7vw;
+        height: auto;
+        display: block;
+    } */
+    /* .popup-slides img {
+      max-width: 78vw;
+      height: auto;
+      display: block;
+    } */
+    
+    .workflow-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 0.4vw;
+    }
+    .platform-button {
+      max-width: 11vw;
+      width: 24%;
+      text-align: center;
+      display: flex;
+      border-radius: 25%;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      /* transition: box-shadow 0.3s ease-in-out, transform 1s 0.2 ease-in-out; */
+      animation: none; /* Disable default animation */
+    }
+    .platform-button img{
+      width:101%;
+      height: 101%;
+    }
+
+/* Pulsating glow keyframes */
+@keyframes pulsateGlow {
+  0% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0.1);
+  }
+}
+
+
+/* Glow for header-svg button */
+.header-svg {
+  animation: pulsateGlow 5s infinite;
+  animation-delay: 0.5s; /* Starts immediately */
+}
+
+/* Glow for workflow-container buttons */
+.workflow-container .platform-button {
+  animation: pulsateGlow 5s infinite;
+  animation-delay: 1.5s; /* Starts after 2 seconds */
+}
+
+/* Glow for assist-section button */
+.assist-section {
+  animation: pulsateGlow 5s infinite;
+  animation-delay: 2.5s; /* Starts after 4 seconds */
+}
+
+/* Glowing effect on hover */
+.platform-button:hover > * {
+  /* box-shadow: 0 2px 10px 5px rgba(0, 255, 0, 0.7);  */
+  transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+/* Optional: Active state to make the glow more pronounced when clicked */
+.platform-button:active > * {
+  box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.9); /* Brighter glow */
+  transform: scale(0.95); /* Slightly reduces the button size */
+}
+/* 
+@keyframes sequentialGlow {
+  0% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0);
+  }
+} */
+/*
+@keyframes pulsateGlow {
+  0% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px 3px rgba(0, 255, 0, 0.6);
+  }
+}  */
+
+    .workflow-item, .platform-button {
+      max-width: 11vw;
+      max-height: 11vh;
+      width: 24%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .platform-button.header-svg, .platform-button.assist-section {
+      max-width: 40vw;
+      width: 100%;
+      max-height: 5vh;
+      cursor: pointer;
+    }
+    
+    .platform-button.header-svg:hover .cls-1, .platform-button.assist-section:hover .cls-1 {
+      fill: #04667f;
+    }
+    
+    .workflow-item:hover {
+      box-shadow: 0 0 15px 10px rgba(92, 216, 78, 0.5), 0 0 25px 15px rgba(92, 216, 78, 0.2);
+    }
+    
+    .workflow-item:active {
+      box-shadow: 0 0 25px 20px rgba(92, 216, 78, 0.7), 0 0 35px 25px rgba(92, 216, 78, 0.4);
+    }
+    
+    .workflow-item svg {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    
+    .platform-button.assist-section {
+      border-radius: 20%;
+      text-align: center;
+      margin-top: 0.5vw;
+      font-weight: bold;
+    }
+    
+    .header img {
+      height: 60px;
+    }
+    
+    .top-right-buttons, .platform-buttons {
+      display: flex;
+      gap: 3vw;
+      font-size: 1.6em;
+      top: 17vh;
+      right: 10vw;
+      position: fixed;
+    }
+    
+    .button, .info-box {
+      padding: 10px 20px;
+      background-color: #022d42;
+      color: #5edd4f;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      border: 0.2vw solid #00db2e;
+      text-align: center;
+    }
+    
+    .button.top-right {
+      width: 9vw;
+      height: 10vh;
+      color: #000000; /* Change text color to white for better contrast */
+      font-size: 0.8em;
+      font-weight: 550;
+      font-family: "Century Gothic", "Futura", sans-serif;
+      padding: 0.5vw 1vw; /* Adjust padding for a more balanced look */
+      background-color: #045073; /* Slightly lighter shade for the background */
+      border-radius: 12px; /* Slightly increase the border radius */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Increase shadow for more depth */
+      text-align: center; /* Center the text horizontally */
+      display: flex; /* Use flexbox to center content */
+      align-items: center; /* Center the text vertically */
+      justify-content: center; /* Center the text horizontally */
+      line-height: 1.2em; /* Adjust line height for better spacing */
+      cursor: pointer;
+      border: 0.2vw solid #00db2e; /* Keep the green border */
+      transition: background-color 0.3s, transform 0.3s; /* Add transitions for smooth interactions */
+      animation: pulsate 3.1s infinite ease-in-out; /* Pulsating effect */
+
+    }
+
+    /* Pulsating animation */
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.09);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .button.top-right:hover {
+      background-color: #03608c; /* Darken the background on hover */
+      transform: scale(0.96); /* Slightly enlarge the button on hover */
+      animation: none;
+    }
+
+    .button.top-right:active {
+      transform: scale(0.98); /* Slightly shrink the button when active for a tactile feel */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Reduce shadow when active */
+    }
+    
+    .platform-section {
+    background-color: rgba(2, 45, 66, 0.1);
+    color: white;
+    border-radius: 10px;
+    width: 29.5vw;
+    height: 9.5vw;
+    position: fixed;
+    bottom: 0.6vw;
+    right: 14vw;
+    z-index: 10;
+}
+    @media screen and (min-width: 1160px) and (max-width: 1910px){
+      .platform-section {
+        width: 28.5vw;
+        height: 9.5vw;
+        position: fixed;
+        bottom: 0.5vw;
+        right: 14vw;
+        z-index: 10
+    }
+
+      .white-bg{
+          position: absolute;
+          left: -0.1vw;
+          width: 101vw;
+          height: 12vh;
+          z-index: 1;
+          background-color: #ffffff;
+      }
+      .popup .close {
+        top: 0vh;
+      left:80vw;
+   
+    }
+      /* .popup .popup-heading {
+          left: 6vw;
+      
+      } */
+      .popup-slides img {
+        position: fixed;
+        max-width: 75vw;
+        left: 5vw;
+        height: auto;
+        display: block;
+    }
+
+    }
+    @media screen and (min-width: 2800px) and (max-width: 3900px){
+      .platform-section {
+          background-color: rgba(2, 45, 66, 0.1);
+          color: white;
+          border-radius: 10px;
+          width: 30vw;
+          height: 9.2vw;
+          position: fixed;
+          bottom: 0.6vw;
+          right: 14vw;
+          z-index: 10;
+      }
+      .popup .close {
+        top: 0.9vh;
+      left:80.9vw;
+   
+    }
+    }
+
+    @media screen and (min-width: 3900px) {
+      .platform-section {
+        background-color: rgba(2, 45, 66, 0.1);
+        color: white;
+        border-radius: 10px;
+        width: 24vw;
+        height: 7.5vw;
+        position: fixed;
+        bottom: 1.6vh;
+        right: 17vw;
+        z-index: 10;
+    }
+    }
+
+   </style>    
+
+       
+  <!-- <div class="platform-section">
+
+    <div class="platform-button header-svg" data-popup="#popup-11" style="--child-index: 1;">
+      <img src="support/1_1_NowPlatForm_.svg" alt="Now Platform"  style="border-radius: 6%;">
+    </div>
+  
+    <div class="workflow-container">
+     
+      <div class="platform-button" data-popup="#popup-14" style="--child-index: 2;">
+        <img src="support/2_1_CustomerWorkflows.svg" alt="Customer Service Management" style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-13" style="--child-index: 2;">
+        <img src="support/2_2_EmployeeWorkflows.svg" alt="Employee Workflow"  style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-15" style="--child-index: 2;">
+        <img src="support/2_3_CreatorWorkflows.svg" alt="CreatorWorkflow Workflow" style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-12" style="--child-index: 2;">
+        <img src="support/2_4_TechnologyWorkflow.svg" alt="Technology Workflow" style="border-radius: 10px;">
+      </div>
+    </div>
+  
+    <div class="platform-button assist-section" data-popup="#popup-16" style="--child-index: 3;">
+
+      <img src="support/3_1_NowAssist.svg" alt="Now Assist" style="border-radius: 6%;">
+    </div>
+  </div> -->
+		  <script>
+       const popups = {
+    '#popup-1': ['assets/png/Slide1.png', 'assets/png/Slide2.png'],
+    '#popup-2': ['assets/png/Slide3.png'],
+    '#popup-3': ['assets/png/Slide4.png', 'assets/png/Slide5.png'],
+    '#popup-4': ['assets/png/Slide6.png', 'assets/png/Slide7.png'],
+    '#popup-5': ['assets/png/Slide8.png', 'assets/png/Slide9.png'],
+    '#popup-6': ['assets/png/Slide10.png'], // Growth Development 
+    '#popup-7': ['assets/png/Slide11.png', 'assets/png/Slide12.png'], // Workspace Experience
+    '#popup-8': ['assets/png/Slide13.png'],//visitor management
+    '#popup-9': ['assets/png/Slide14.png', 'assets/png/Slide15.png'],
+    '#popup-10': ['assets/png/Slide16.png', 'assets/png/Slide17.png'], //Personalized content..
+    '#popup-11': ['assets/png/Slide18.png'], // NOw platform etc
+    '#popup-12': [ 'assets/png/Slide19.png', 'assets/png/Slide20.png' ], //technology workflow
+    '#popup-14': ['assets/png/Slide22.png'],//Customer workflows
+    '#popup-13': ['assets/png/Slide21.png'],    //Employee Workflows
+    '#popup-15': ['assets/png/Slide23.png','assets/png/Slide24.png'], //Creator Workflow//
+    '#popup-16': ['assets/png/Slide25.png', 'assets/png/Slide26.png'] 
+};
+
+
+function setupPopup(popupId, images) {
+    const popup = $(popupId);
+    const overlay = $('.popup-overlay');
+    const slidesContainer = popup.find('.popup-slides');
+    let currentSlide = 0;
+
+    function updateButtons() {
+        popup.find('.prev').toggle(currentSlide > 0);
+        popup.find('.next').toggle(currentSlide < images.length - 1);
+    }
+
+    function updateSlides() {
+        slidesContainer.find('img').hide().eq(currentSlide).show();
+        updateButtons();
+    }
+
+    function closePopup() {
+        popup.removeClass('show');
+        overlay.removeClass('show');
+        currentSlide = 0; // Reset currentSlide when closing
+    }
+
+    function openPopup() {
+        popup.addClass('show');
+        overlay.addClass('show');
+        currentSlide = 0; // Reset currentSlide when opening
+        updateSlides();
+    }
+
+    // Event handlers for navigation buttons
+    popup.find('.next').off('click').on('click', function() {
+        if (currentSlide < images.length - 1) {
+            currentSlide++;
+            updateSlides();
+        }
+    });
+
+    popup.find('.prev').off('click').on('click', function() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlides();
+        }
+    });
+
+    // Close popup when clicking close button or overlay
+    popup.find('.close').off('click').on('click', closePopup);
+    overlay.off('click').on('click', closePopup);
+
+    // Initialize slides
+    slidesContainer.empty();
+    images.forEach((src) => {
+        slidesContainer.append(`<img src="${src}" alt="Popup Image" style="display: none;">`);
+    });
+
+    // Ensure slides are updated properly when opening the popup
+    openPopup();
+}
+
+$(document).ready(function() {
+    $('.button, .info-box, .platform-button').off('click').on('click', function() {
+        const targetPopup = $(this).data('popup');
+        // Close any open popups before opening the new one
+        $('.popup.show').each(function() {
+            const id = `#${this.id}`;
+            if (id !== targetPopup) {
+                closePopup(id);
+            }
+        });
+        // Setup and open the new popup
+        setupPopup(targetPopup, popups[targetPopup]);
+    });
+
+    // Close popup function for closing popups from anywhere
+    function closePopup(popupId) {
+        const popup = $(popupId);
+        const overlay = $('.popup-overlay');
+        popup.removeClass('show');
+        overlay.removeClass('show');
+        // Reset currentSlide when closing
+        $(popupId).data('currentSlide', 0);
+    }
+});
+
+
+    </script>
+
+    <script>
+   
+
+    function adjustVideoPosition() {
+        var video = document.getElementById('video-background');
+        var aspectRatio = 16 / 9; // Assuming 16:9 aspect ratio for the video
+        var windowAspectRatio = window.innerWidth / window.innerHeight;
+
+        if (windowAspectRatio > aspectRatio) {
+            // Window is wider than the video
+            var videoHeight = window.innerWidth / aspectRatio;
+            video.style.width = '100%';
+            video.style.height = videoHeight + 'px';
+            video.style.left = '0';
+            video.style.top = -(videoHeight - window.innerHeight) / 2 + 'px';
+        } else {
+            // Window is taller than the video
+            var videoWidth = window.innerHeight * aspectRatio;
+            video.style.width = videoWidth + 'px';
+            video.style.height = '90%';
+            video.style.left = -(videoWidth - window.innerWidth) / 2 + 'px';
+            video.style.top = '0';
+        }
+    }
+
+    window.onload = function() {
+        adjustVideoPosition();
+    };
+
+    window.onresize = function() {
+        adjustVideoPosition();
+    };
+    </script>
+    <script>
+      // document.querySelectorAll('.platform-button').forEach((button, index) => {
+      //   button.style.animationDelay = `${index * 0.5}s`; // Different delays for each button
+      //   button.style.animationDuration = `${2 + (index * 0.3)}s`; // Different durations
+      // });
+    </script>
+	</head>
+		<body class="">
+      <div class="modal"></div>
+			<div class="video-background">
+			<video id="video-background" autoplay muted loop >
+					<source src="./assets/Background-vid.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+
+			<div class="main sub" style="overflow: hidden; max-width: 100vw; max-height: 100vh;">
+        <div class="white-bg" ></div>
+				<div class="title" style="position:absolute; width: 50%; left:6vw;">
+            <div class="logo" > 
+              <div style="display:block; gap: 1vh;" >
+                <img src="support/top-logo.svg" alt="">
+
+              </div>
+              <div style="height: 0.91vh;"></div>
+              <br />
+              <br />
+              <h2 style="color: #90EE90; min-width: 100px;">Riding Ahead with the HKJC-ServiceNow Partnership</h2>
+              <h4  style="color: #ffffff;width: 108%">Connected Club Employees and Optimised Racecourse Operations on a Single Platform</h4>
+            
+            <p class="text-white font-medium" style="position: relative;color: #ffffff; width: 115%;" >
+
+              <br />ServiceNow continues to stand with HKJC in its mission to become a world-class racing club backed by a truly connected enterprise, equipped with the solutions to overcome productivity, collaboration, and automation challenges.​
+              <br />
+              <br />
+              With ServiceNow, HKJC will elevate its drive towards next-generation employee and member experiences with 
+              an AI-ready platform that optimises manual and inefficient processes across clubhouse and racecourse operations, unifies service delivery across HKJC's workforce, and empowers club employees with business-ready AI.</p>
+
+            </div>
+            <div>
+              <div class="top-right-buttons">
+                <div class="button top-right" data-popup="#popup-1" style="background-color: #7ed561;">About ServiceNow</div>
+                <div class="button top-right" data-popup="#popup-2" style="color: #90EE90;">About HKJC</div>
+              </div>
+              <br />
+              <br />
+         </div>
+				
+				</div>
+       
+    <div class="container">
+      <!-- InfoBox Buttons 
+      
+      -->
+      <div class="info-box" data-popup="#popup-3" style=" position: fixed; font-size:0.9em; top: 39vh; left: 10vw;" >HR Agent Workspace</div>
+      <div class="info-box" data-popup="#popup-5"  style=" position: fixed; font-size:0.9em; top: 39vh; left: 21vw;" >Employee Journey</div>
+      <div class="info-box" data-popup="#popup-4"  style=" position: fixed; font-size:0.9em; top: 39vh; left: 32vw;" >One Single Portal</div>
+      <div class="info-box" data-popup="#popup-8"  style=" position: fixed; font-size:0.9em; top: 52vh; left: 42vw;" >Visitor Management</div>
+      <div class="info-box" data-popup="#popup-6"  style=" position: fixed; font-size:0.9em; top: 65vh; left: 7.5vw;" >Growth & Development</div>
+      <div class="info-box" data-popup="#popup-10"  style=" position: fixed; font-size:0.9em; top: 65vh; left: 37vw;" >Personalise Content</div>
+      <div class="info-box" data-popup="#popup-7"  style=" position: fixed; font-size:0.9em; top: 48vh; right: 16vw;" >Workplace Experience</div>
+      <div class="info-box" data-popup="#popup-9"  style=" position: fixed; font-size:0.9em; top: 58vh; right: 16vw;" >Health & Safety</div>
+  </div>
+
+ 
+
+  <!-- Popups -->
+  <div id="popup-1" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>About ServiceNow</h2> </div>
+      <div class="popup-nav">
+        <button class="prev"></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-2" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>About The Hong Kong Jockey Club</h2> </div>
+      <div class="popup-nav">
+        <button class="prev"></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-3" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>HR Agent Workspace</h2> </div>
+      <div class="popup-nav">
+        <button class="prev"></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-4" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>One Single Portal</h2> </div>
+      <div class="popup-nav">
+        <button class="prev"></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-5" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Employee Journey</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-6" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Growth and Development</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-7" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Workplace Experience</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-8" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Visitor Management</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-9" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Health & Safety</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-10" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Personalised Content Experience</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-11" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Now Platform</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-12" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Technology Workflows</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-13" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Employee Workflows</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next"></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-14" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Customer Workflows</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="popup-15" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Creator Workflows</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup-16" class="popup">
+    <div class="close"></div>
+    <div class="popup-content">
+      <div class="popup-heading">  <h2>Now Assist</h2> </div>
+      <div class="popup-nav">
+        <button class="prev" ></button>
+        <div class="popup-slides"></div>
+        <button class="next" ></button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="popup-overlay"></div>
+
+        
+  <div class="platform-section">
+    <!-- SVG CODE BE ADDED later-->
+    <div class="platform-button header-svg" data-popup="#popup-11" style="--child-index: 1;">
+      <img src="support/1_1_NowPlatForm_.svg" alt="Now Platform"  style="border-radius: 6%;">
+    </div>
+  
+    <div class="workflow-container">
+     
+      <div class="platform-button" data-popup="#popup-14" style="--child-index: 2;">
+        <img src="support/2_1_CustomerWorkflows.svg" alt="Customer Service Management" style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-13" style="--child-index: 2;">
+        <img src="support/2_2_EmployeeWorkflows.svg" alt="Employee Workflow"  style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-15" style="--child-index: 2;">
+        <img src="support/2_3_CreatorWorkflows.svg" alt="CreatorWorkflow Workflow" style="border-radius: 10px;">
+      </div>
+      <div class="platform-button" data-popup="#popup-12" style="--child-index: 2;">
+        <img src="support/2_4_TechnologyWorkflow.svg" alt="Technology Workflow" style="border-radius: 10px;">
+      </div>
+    </div>
+  
+    <div class="platform-button assist-section" data-popup="#popup-16" style="--child-index: 3;">
+
+      <img src="support/3_1_NowAssist.svg" alt="Now Assist" style="border-radius: 6%;">
+    </div>
+  </div>
+        
+			</div>
+		</body>
+
+
+
+	
+</html>

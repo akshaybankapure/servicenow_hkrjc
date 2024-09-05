@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 588.39 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #02475d;
+        stroke-width: 0px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #5cd84e;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5, .cls-3 {
+        font-family: CenturyGothic-Bold, 'Century Gothic', sans-serif, 'Futura';
+        font-size: 17px;
+        font-weight: 500;
+      }
+    </style>
+  </defs>
+  <g id="Interactive_bottom" data-name="Interactive bottom">
+    <g>
+      <rect class="cls-1" width="588" height="42" rx="12" ry="12"/>
+      <g>
+        <text class="cls-3" transform="translate(89.49 26.28)"><tspan x="0" y="0">Now Platform</tspan></text>
+        <text class="cls-3" transform="translate(198.27 20.62) scale(.58)"><tspan x="0" y="0">®</tspan></text>
+        <text class="cls-5" transform="translate(205.61 26.28)"><tspan class="cls-2" x="0" y="0">: </tspan><tspan class="cls-4" x="9.51" y="0">The intelligent platform for digital business</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

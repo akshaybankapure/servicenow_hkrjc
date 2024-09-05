@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 588 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #032d42;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        fill: #000;
+        font-family: CenturyGothic-Bold, 'Century Gothic', sans-serif, 'Futura';
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0" y1="21" x2="588" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007392"/>
+      <stop offset=".33" stop-color="#24c2ce"/>
+      <stop offset=".67" stop-color="#57d8a0"/>
+      <stop offset="1" stop-color="#86ed78"/>
+    </linearGradient>
+  </defs>
+  <g id="Interactive_bottom" data-name="Interactive bottom">
+    <g>
+      <rect class="cls-2" width="588" height="42" rx="12" ry="12"/>
+      <g>
+        <g>
+          <path class="cls-1" d="M246.61,9.17c-.24.84-.88,1.49-1.69,1.74l-1.79.54c-.3.09-.3.54,0,.63l1.79.55c.81.25,1.45.91,1.69,1.75l.54,1.87c.09.32.54.33.63.01l.54-1.86c.24-.84.9-1.5,1.73-1.74l2.2-.64c.23-.07.23-.4,0-.47l-2.2-.65c-.84-.25-1.49-.91-1.73-1.75l-.54-1.87c-.09-.32-.54-.31-.63,0l-.54,1.87Z"/>
+          <path class="cls-1" d="M237.42,15.39c-.47,2.12-2.03,3.73-3.99,4.16l-3.19.71c-.3.07-.3.53,0,.62l3.19.95c1.96.58,3.52,2.31,3.99,4.46l.79,3.58c.08.34.53.38.61.04l.8-3.5c.49-2.12,2.1-3.72,4.19-4.15l3.55-.72c.34-.07.34-.57,0-.66l-3.54-.98c-2.09-.58-3.7-2.31-4.19-4.46l-.8-3.56c-.08-.34-.53-.34-.61,0l-.79,3.52Z"/>
+        </g>
+        <text class="cls-3" transform="translate(257.73 26.39)"><tspan x="0" y="0">Now Assist</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142 88">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #02475d;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #5cd84e;
+      }
+
+      .cls-4 {
+        font-family: CenturyGothic-Bold, 'Century Gothic', sans-serif, 'Futura';
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Interactive_bottom" data-name="Interactive bottom">
+    <g>
+      <rect class="cls-1" width="142" height="88" rx="11.15" ry="11.15"/>
+      <g>
+        <path class="cls-3" d="M89.52,22.78c-9.43,0-17.07,7.64-17.07,17.07h5.24c0-6.54,5.3-11.83,11.83-11.83v-5.24Z"/>
+        <path class="cls-2" d="M60.59,22.78c9.43,0,17.07,7.64,17.07,17.07h-5.24c0-6.54-5.3-11.83-11.83-11.83v-5.24Z"/>
+        <circle class="cls-3" cx="74.94" cy="15.84" r="4.39"/>
+      </g>
+      <text class="cls-4" transform="translate(41.03 58.89)"><tspan x="0" y="0">Employee</tspan><tspan x="3.23" y="17">Workflow</tspan></text>
+    </g>
+  </g>
+</svg>
